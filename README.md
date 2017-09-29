@@ -57,7 +57,7 @@ An example of how the date score looks is shown in the below image.
 
 
 ### Calculating the trust score
-The trust score itself is simply the total score achieved by each review, divided by the total possible score available; it's a percentage. I then translate this to the Trust Pilot scale, so rather than being out of 100, it's out of 10.
+The trust score itself is simply the total score achieved by all the reviews, divided by the total possible score available; it's a percentage. I then translate this to the Trust Pilot scale, so rather than being out of 100, it's out of 10. Taking this approach means that over time reviews will be weighted less and less towards the final score, however the score itself would remain unchanged if no new reviews are left for the company. 
 
 The algorithm then checks to make sure that the score is between the min and max thresholds, and if it is it returns, but if it isn't it returns the minimum threshold if it's less than the min, or the maximum threshold if it's more than the max. As explained above, this prevents a company with 1 five star review, scoring a perfect 10.
 

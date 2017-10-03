@@ -19,6 +19,22 @@ Successful calls will return a JSON object in the below form.
 }
 ```
 
+## How to deploy in AWS
+I've created a `deploy.py` script that builds the AWS environment for this function. This script creates an IAM role for the lambda function, it moves the lambda function to a local directory, installs the requirements, packages up as a zip and creates a lambda function. Finally, it creates a REST API in API Gateway, with one resource and a POST method and deploys this to be publicly accessible.
+
+The prerequisites are:
+
+* Python 3 is installed
+* The [requirements](requirements.txt) are installed.
+* AWS CLI is installed and configured with AWS credentials (or if you run the script off of an EC2 instance, you can apply a role that gives EC2 full permission to Lambda, IAM and API Gateway).
+
+Once these points have been satisfied, open the `deploy.py` file and change the settings at the top of the file accordingly. Finally, run:
+
+```
+python deploy.py
+```
+
+*NOTE: There seems to be an issue with creating GET methods in API Gateway, via the SDK, that invoke Lambda functions, where all responses throw a forbidden error. This is discussed [here](https://forums.aws.amazon.com/thread.jspa?messageID=745586&#745586) but I've also seen this problem discussed in many places across Github. To solve this problem the POST method is used instead. However, if you build the API manually from the console, you can create with a GET method.*
 
 ## How it works
 The process is the same as what's outlined in the original challenge: first a request is made to Trust Pilot's API to get the business unit for the target domain, then the reviews are obtained for that business unit. Trust Pilot implements pagination on the reviews, so the reviews will be retrieved for each page until either the limit is reached or the last page has.
